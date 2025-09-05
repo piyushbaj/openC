@@ -1,2 +1,2 @@
 <!-- to run the project -->
-<!-- use -> dev:postService -->
+<!-- use -> npm run dev:postService -->
