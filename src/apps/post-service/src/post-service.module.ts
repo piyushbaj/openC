@@ -1,9 +1,17 @@
 import { Module } from '@nestjs/common';
 import { PostServiceController } from './post-service.controller';
 import { PostServiceService } from './post-service.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { PostSchema, Post } from './dto/entities/post.entity';
 
 @Module({
-  imports: [],
+  imports: [
+     MongooseModule.forRoot('mongodb+srv://piyush:knitKnit@cluster0.wdg5gz0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/nest-posts', {
+      dbName: 'nest-posts',  // optional, for clarity
+    }),
+    MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
+    PostServiceModule,
+  ],
   controllers: [PostServiceController],
   providers: [PostServiceService],
 })
