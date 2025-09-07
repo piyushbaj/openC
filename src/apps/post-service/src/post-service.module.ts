@@ -12,6 +12,7 @@ import { PostSchema, Post } from './dto/entities/post.entity';
     // MongooseModule.forRoot('mongodb://localhost:27017/cluster', {
     //   dbName: 'nest-posts',
     // }),
+    // 
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
     PostServiceModule,
   ],
