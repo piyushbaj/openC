@@ -1,10 +1,12 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { PostServiceService } from './post-service.service';
+import { PostService } from './post.service';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CreatePostDto } from './dto/ create-post.dto';
 
-@Controller('post')
-export class PostServiceController {
-  constructor(private readonly postServiceService: PostServiceService) {}
+@Controller()
+export class PostController {
+  constructor(private readonly postService: PostService) {}
+  @MessagePattern('posts.create')
 
   @Get()
   getFeed(@Query('page') page: string) {
@@ -12,12 +14,11 @@ export class PostServiceController {
     if (isNaN(pageNumber) || pageNumber < 1) {
       pageNumber = 1;
     }
-    return this.postServiceService.getAllFeed(pageNumber);
+    return this.postService.getAllFeed(pageNumber);
   }
 
   @Post()
   create(@Body() dto: CreatePostDto) {
-    return this.postServiceService.create(dto);
+    return this.postService.create(dto);
   }
 }
- 
